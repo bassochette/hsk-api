@@ -16,8 +16,12 @@ export class VocabularyService {
   }
 
   async getWordByNumber(pinyinNumber: string): Promise<IVocabulary> {
-    const word = await this.vocabularyModel.findOne({ numbers: pinyinNumber }).exec();
-    const related = await this.vocabularyModel.find({ components: word.simplified }).exec();
+    const word = await this.vocabularyModel
+      .findOne({ numbers: pinyinNumber })
+      .exec();
+    const related = await this.vocabularyModel
+      .find({ components: word.simplified })
+      .exec();
     return {
       ...word,
       related,
@@ -28,8 +32,13 @@ export class VocabularyService {
     return this.vocabularyModel.find({ exams: exam });
   }
 
-  async getRandomWordsByExam(exam: EXAMS, count: number = 1): Promise<IVocabulary[]> {
-    const wordsCount: number = await this.vocabularyModel.count({ exams: exam });
+  async getRandomWordsByExam(
+    exam: EXAMS,
+    count: number = 1,
+  ): Promise<IVocabulary[]> {
+    const wordsCount: number = await this.vocabularyModel.count({
+      exams: exam,
+    });
 
     return [];
   }

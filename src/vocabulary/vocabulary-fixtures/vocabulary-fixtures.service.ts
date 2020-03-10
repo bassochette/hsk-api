@@ -64,7 +64,13 @@ export class VocabularyFixturesService {
       await this.vocabularyModel.findOneAndUpdate(
         { traditional },
         {
-          simplified, traditional, numbers, accent, en, exams, components,
+          simplified,
+          traditional,
+          numbers,
+          accent,
+          en,
+          exams,
+          components,
         },
         {
           new: true,

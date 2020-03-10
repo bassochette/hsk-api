@@ -12,7 +12,7 @@ export class VocabularyController {
 
   @Get('/pinyin/:pinyinNumber')
   async getWordByNumber(@Param('pinyinNumber') pinyinNumber) {
-      return this.vocabularyService.getWordByNumber(pinyinNumber);
+    return this.vocabularyService.getWordByNumber(pinyinNumber);
   }
 
   @Get('/list/:exam')
