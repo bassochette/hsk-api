@@ -14,5 +14,6 @@ import { VocabularyFixturesService } from './vocabulary-fixtures/vocabulary-fixt
   ],
   providers: [VocabularyService, VocabularyFixturesService],
   controllers: [VocabularyController],
+  exports: [VocabularyService],
 })
 export class VocabularyModule {}
