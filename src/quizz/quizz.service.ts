@@ -2,7 +2,7 @@ import * as _ from 'lodash';
 import { v4 as uuidV4 } from 'uuid';
 
 import { Model } from 'mongoose';
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 
 import { VocabularyService } from '../vocabulary/vocabulary.service';
@@ -22,6 +22,17 @@ export class QuizzService {
     private readonly vocabularyService: VocabularyService,
   ) {}
 
+  public async isValidAnswer(
+    questionId: string,
+    answer: string,
+  ): Promise<boolean> {
+    const question: IQuestion = await this.questionModel.findOne({
+      uuid: questionId,
+    });
+    if (!question) throw new NotFoundException();
+    return question.validAnswer === answer;
+  }
+
   public async getRandomQuestionByExam(
     exam: EXAMS,
     difficulty: number = 1,
@@ -35,6 +46,7 @@ export class QuizzService {
     const question = await this.questionModel.create({
       uuid: uuidV4(),
       statement: valid.simplified,
+      tip: valid.numbers,
       answers: _.shuffle(words.map(w => w.en)),
       validAnswer: valid.en,
       type: QuestionType.SIMPLIFIED_TO_EN,
@@ -42,7 +54,8 @@ export class QuizzService {
 
     return {
       uuid: question.uuid,
-      statement: question.valid,
+      statement: question.statement,
+      tip: question.tip,
       answers: question.answers,
     };
   }

@@ -1,14 +1,16 @@
 export interface IQuestion {
   uuid: string;
   statement: string;
+  tip?: string;
   answers: string[];
-  validAnswer: string[];
+  validAnswer: string;
   type: QuestionType;
 }
 
 export interface ISendableQuestion {
   uuid: string;
   statement: string;
+  tip?: string;
   answers: string[];
 }
 

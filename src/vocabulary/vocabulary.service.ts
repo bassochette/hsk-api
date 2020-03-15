@@ -40,9 +40,6 @@ export class VocabularyService {
       exams: exam,
     });
     const skip = Math.floor(Math.random() * (wordsCount - count));
-    console.log('WORD COUNT', wordsCount);
-    console.log('skip', skip);
-    console.log('EXAM', exam);
     return this.vocabularyModel
       .find({ exams: exam })
       .limit(count)
